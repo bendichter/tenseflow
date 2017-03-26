@@ -63,11 +63,21 @@ button {
 </HEAD>
 <form method="post" action="{{ url_for('result') }}">
   <div>
-    <label for="text">Input Text:</label>
-    <textarea id="text" name="input_text"></textarea>
+    <textarea id="text" name="input_text">{{ text_in }}</textarea>
+  </div>
+  <div>
+      <select name="tense">
+          <option>past</option>
+          <option>present</option>
+          <option>future</option>
+      </select>
   </div>
 
   <div class="button">
-    <button type="submit">Send your message</button>
+    <button type="submit">Change tense!</button>
   </div>
 </form>
+{% if text_out %}
+<h2>Result</h2>
+<p>{{ text_out }}</p>
+{% endif %}
