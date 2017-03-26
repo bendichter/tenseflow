@@ -13,5 +13,5 @@ setup(name='change_tense',
       author_email='ben.dichter@gmail.com',
       url='',
       packages=find_packages(exclude='test'),
-      install_requires=['spacy', 'pattern', 'sputnik']
+      install_requires=['spacy', 'pattern','flask']
      )
