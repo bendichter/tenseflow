@@ -1,0 +1,3 @@
+import subprocess
+#subprocess.check_output(['ls','-l']) #all that is technically needed...
+print subprocess.check_output(['python', '-m', 'spacy', 'download', 'en'])
