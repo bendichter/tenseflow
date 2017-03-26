@@ -1,0 +1,8 @@
+change_tense/__init__.py
+change_tense/change_tense.py
+change_tense/utils.py
+change_tense.egg-info/PKG-INFO
+change_tense.egg-info/SOURCES.txt
+change_tense.egg-info/dependency_links.txt
+change_tense.egg-info/requires.txt
+change_tense.egg-info/top_level.txt
