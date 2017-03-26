@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request
 from change_tense.change_tense import change_tense
+import sputnik
+import spacy.about
+
+package = sputnik.install('spacy', spacy.about.__version__, spacy.about.__default_model__)
 
 app = Flask(__name__)
 
