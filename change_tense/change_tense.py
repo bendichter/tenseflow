@@ -49,12 +49,17 @@ def is_plural_verb(token):
     if token.doc.is_tagged is False:
         raise ValueError('token is not POS-tagged')
     subjects = get_subjects_of_verb(token)
+    if not len(subjects):
+        return False
     plural_score = sum([is_plural_noun(x) for x in subjects])/len(subjects)
 
     return plural_score > .5
 
 
-def change_tense_spacy(text, to_tense, nlp=nlp):
+def change_tense(text, to_tense, nlp=nlp):
+
+    tense_lookup = {'future': 'inf', 'present': PRESENT, 'past': PAST}
+    tense = tense_lookup[to_tense]
 
     doc = nlp(unicode(text))
 
@@ -63,25 +68,22 @@ def change_tense_spacy(text, to_tense, nlp=nlp):
     for word_pair in pairwise(doc):
         if (word_pair[0].string == 'will' and word_pair[1].pos_ == u'VERB') \
         or word_pair[1].tag_ == u'VBD' or word_pair[1].tag_ == u'VBP':
-            if to_tense == 'present':
-                subjects = [x.text for x in get_subjects_of_verb(word_pair[1])]
-                if ('I' in subjects) or ('we' in subjects) or ('We' in subjects):
-                    person = 1
-                elif ('you' in subjects) or ('You' in subjects):
-                    person = 2
-                else:
-                    person = None
-                if is_plural_verb(word_pair[1]):
-                    out.append(conjugate(word_pair[1].text, PRESENT, person, PLURAL))
-                else:
-                    out.append(conjugate(word_pair[1].text, PRESENT))
-            elif to_tense == 'past':
-                out.append(conjugate(word_pair[1].text, PAST))
-            elif to_tense == 'future':
+            subjects = [x.text for x in get_subjects_of_verb(word_pair[1])]
+            if ('I' in subjects) or ('we' in subjects) or ('We' in subjects):
+                person = 1
+            elif ('you' in subjects) or ('You' in subjects):
+                person = 2
+            else:
+                person = 3
+            if is_plural_verb(word_pair[1]):
+                number = PLURAL
+            else:
+                number = SINGULAR
+            if to_tense == 'future':
                 out.append('will')
-                out.append(conjugate(word_pair[1].text, 'inf'))
+            out.append(conjugate(word_pair[1].text, tense=tense, person=person, number=number))
 
-            elif word_pair[1].text == 'will' and word_pair[1].tag_ == 'MD':
+            if word_pair[1].text == 'will' and word_pair[1].tag_ == 'MD':
                 pass
         else:
             out.append(word_pair[1].text)
