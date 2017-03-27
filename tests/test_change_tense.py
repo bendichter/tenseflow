@@ -47,5 +47,8 @@ def test_negation():
     assert ct('I do not go', 'past') == 'I did not go'
     assert ct('I do not go', 'future') == 'I will not go'
 
-# TODO
-# future perfect
+
+def test_from_future_perfect():
+    assert ct('I will have been alive', 'future') == 'I will be alive'
+    assert ct('I will have been alive', 'present') == 'I am alive'
+    assert ct('I will have been alive', 'past') == 'I was alive'

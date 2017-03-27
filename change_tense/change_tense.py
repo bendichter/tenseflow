@@ -88,6 +88,8 @@ def change_tense(text, to_tense, nlp=nlp):
             out.append(conjugate(word_pair[1].text, tense=tense, person=person, number=number))
         else:
             out.append(word_pair[1].text)
+
+        # negation
         if word_pair[0].text+word_pair[1].text in ('didnot', 'donot', 'willnot'):
             if tense == PAST:
                 out[-2] = 'did'
@@ -95,6 +97,11 @@ def change_tense(text, to_tense, nlp=nlp):
                 out[-2] = 'do'
             else:
                 out.pop(-2)
+
+        # future perfect
+        if word_pair[0].text+word_pair[1].text == 'willhave':
+            out.pop(-1)
+
 
     text_out = ' '.join(out)
 
