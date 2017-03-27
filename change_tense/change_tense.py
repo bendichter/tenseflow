@@ -98,8 +98,8 @@ def change_tense(text, to_tense, nlp=nlp):
             else:
                 out.pop(-2)
 
-        # future perfect
-        if word_pair[0].text+word_pair[1].text == 'willhave':
+        # future perfect, but ignore for "I will have cookies"
+        if word_pair[0].text+word_pair[1].text == 'willhave' and len(list(word_pair[1].ancestors)):
             out.pop(-1)
 
 

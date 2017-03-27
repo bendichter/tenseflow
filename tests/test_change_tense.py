@@ -52,3 +52,4 @@ def test_from_future_perfect():
     assert ct('I will have been alive', 'future') == 'I will be alive'
     assert ct('I will have been alive', 'present') == 'I am alive'
     assert ct('I will have been alive', 'past') == 'I was alive'
+    assert ct('I will have five cookies', 'past') == 'I had five cookies'
