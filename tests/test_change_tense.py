@@ -38,8 +38,17 @@ def test_from_pluperfect():
     assert ct('I had walked to the store.', 'future') == 'I will walk to the store.'
 
 
-def test_aux_verb():
+def test_from_present_progressive():
     assert ct('I was going to the store', 'present') == 'I am going to the store'
+
+
+def test_from_future_progressive():
+    assert ct('I will be going to the store', 'present') == 'I am going to the store'
+
+
+def test_from_present_perfect_tense():
+    assert ct('I have gone to the store.', 'present') == 'I go to the store.'
+    assert ct('I win because I have five cookies', 'past') == 'I won because I had five cookies'
 
 
 def test_negation():
