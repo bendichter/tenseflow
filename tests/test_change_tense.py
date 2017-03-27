@@ -37,5 +37,9 @@ def test_from_pluperfect():
     assert ct('I had walked to the store.', 'present') == 'I walk to the store.'
     assert ct('I had walked to the store.', 'future') == 'I will walk to the store.'
 
-#TODO
-# future perfect, "will not"
+
+def test_aux_verb():
+    assert ct('I was going to the store', 'present') == 'I am going to the store'
+
+# TODO
+# future perfect, "will not", "I am going to the store"

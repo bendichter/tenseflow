@@ -37,6 +37,8 @@ def is_plural_noun(token):
 
 
 def get_subjects_of_verb(verb):
+    if verb.dep_ == "aux" and list(verb.ancestors):
+        return get_subjects_of_verb(list(verb.ancestors)[0])
     """Return all subjects of a verb according to the dependency parse."""
     subjs = [tok for tok in verb.lefts
              if tok.dep_ in SUBJ_DEPS]
