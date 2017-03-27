@@ -66,8 +66,8 @@ def change_tense(text, to_tense, nlp=nlp):
     out = list()
     out.append(doc[0].text)
     for word_pair in pairwise(doc):
-        if (word_pair[0].string == 'will' and word_pair[1].pos_ == u'VERB') \
-        or word_pair[1].tag_ == u'VBD' or word_pair[1].tag_ == u'VBP':
+        if (word_pair[0].text == 'will' and word_pair[0].tag_ == 'MD' and word_pair[1].tag_ == u'VB') or \
+                        word_pair[1].tag_ in (u'VBD', u'VBP', u'VBZ'):
             subjects = [x.text for x in get_subjects_of_verb(word_pair[1])]
             if ('I' in subjects) or ('we' in subjects) or ('We' in subjects):
                 person = 1
@@ -81,6 +81,8 @@ def change_tense(text, to_tense, nlp=nlp):
                 number = SINGULAR
             if to_tense == 'future':
                 out.append('will')
+            if word_pair[0].text == 'will' and word_pair[0].tag_ == 'MD':
+                out.pop(-1)
             out.append(conjugate(word_pair[1].text, tense=tense, person=person, number=number))
 
             if word_pair[1].text == 'will' and word_pair[1].tag_ == 'MD':
