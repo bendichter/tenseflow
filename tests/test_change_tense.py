@@ -30,3 +30,12 @@ def test_from_future():
 def test_will_as_noun():
     assert ct('The will says otherwise.', 'past') == 'The will said otherwise.'
     assert ct('The will says otherwise.', 'future') == 'The will will say otherwise.'
+
+
+def test_from_pluperfect():
+    assert ct('He had walked to the store.', 'present') == 'He walks to the store.'
+    assert ct('I had walked to the store.', 'present') == 'I walk to the store.'
+    assert ct('I had walked to the store.', 'future') == 'I will walk to the store.'
+
+#TODO
+# future perfect, "will not"
