@@ -41,5 +41,11 @@ def test_from_pluperfect():
 def test_aux_verb():
     assert ct('I was going to the store', 'present') == 'I am going to the store'
 
+
+def test_negation():
+    assert ct('I did not go', 'present') == 'I do not go'
+    assert ct('I do not go', 'past') == 'I did not go'
+    assert ct('I do not go', 'future') == 'I will not go'
+
 # TODO
-# future perfect, "will not", "I am going to the store"
+# future perfect
