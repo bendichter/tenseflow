@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request
 from change_tense.change_tense import change_tense
+import logging
 
 app = Flask(__name__)
+
+#logging.basicConfig(filename='error.log', level=logging.DEBUG)
+#ch = logging.StreamHandler()
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -15,5 +19,11 @@ def result():
         text_in = request.form['input_text']
     else:
         text_in = ''
-    text_out = change_tense(text_in, request.form['tense'])
+    try:
+        text_out = change_tense(text_in, request.form['tense'])
+    except:
+        text_out = 'ERROR!!!!!!'
     return render_template('form.html', text_in=text_in, text_out=text_out, tense=request.form['tense'])
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')

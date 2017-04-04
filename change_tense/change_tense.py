@@ -44,6 +44,8 @@ def get_subjects_of_verb(verb):
              if tok.dep_ in SUBJ_DEPS]
     # get additional conjunct subjects
     subjs.extend(tok for subj in subjs for tok in _get_conjuncts(subj))
+    if not len(subjs):
+        return get_subjects_of_verb(list(verb.ancestors)[0])
     return subjs
 
 
@@ -85,6 +87,7 @@ def change_tense(text, to_tense, nlp=nlp):
                 out.pop(-1)
             if to_tense == 'future' and out[-1] is not 'will':
                 out.append('will')
+            #if word_pair[0].dep_ == 'auxpass':
             out.append(conjugate(word_pair[1].text, tense=tense, person=person, number=number))
         else:
             out.append(word_pair[1].text)
