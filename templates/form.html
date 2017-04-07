@@ -1,7 +1,9 @@
 <!doctype html>
 
 <HEAD>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         form {
           /* Just to center the form on the page */
@@ -30,7 +32,7 @@
           font: 1em sans-serif;
 
           /* To give the same size to all text fields */
-          width: 300px;
+          width: 800px;
           box-sizing: border-box;
 
           /* To harmonize the look & feel of text field border */
@@ -47,49 +49,32 @@
           vertical-align: top;
 
           /* To give enough room to type some text */
-          height: 5em;
+          height: 10em;
         }
 
-        .button {
-          /* To position the buttons to the same position of the text fields */
-          padding-left: 90px; /* same size as the label elements */
-        }
-
-        button {
-          /* This extra margin represent roughly the same space as the space
-             between the labels and their text fields */
-          margin-left: .5em;
-        }
     </style>
 </HEAD>
-<div class="grid">
-    <div class="col-1-2">
-       <div class="content">
-           <form method="post" action="{{ url_for('result') }}">
-  <div>
-    <textarea id="text" name="input_text">{{ text_in }}</textarea>
-  </div>
-  <div>
-      <select name="tense">
-          <option>past</option>
-          <option>present</option>
-          <option>future</option>
-      </select>
-  </div>
 
-  <div class="button">
-    <button type="submit">Change tense!</button>
-  </div>
+<h1 align="center"> tenseflow </h1>
+
+<form class="pure-form pure-form-aligned" method="post" action="{{ url_for('result') }}">
+    <textarea id="text" name="input_text" class="pure-input-1-2" placeholder="enter text here" style="width:100%;">{{ text_in }}</textarea>
+
+    <div class="pure-control-group">
+            <button type="submit" class="pure-button pure-button-primary" style="width:50%;">Change tense!</button>
+
+          <select name="tense", style="width:30%;">
+              <option>past</option>
+              <option>present</option>
+              <option>future</option>
+          </select>
+
+    </div>
+    <h2>Result</h2>
+    <p>{{ text_out }}</p>
+
 </form>
-       </div>
-    </div>
-    <div class="col-1-2">
-       <div class="content">
-           {% if text_out %}
-<h2>Result</h2>
-<p>{{ text_out }}</p>
-{% endif %}
-       </div>
-    </div>
-</div>
+
+
+
 

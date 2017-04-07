@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def start():
-    return render_template('form.html', text_in='enter text here', text_out='', tense='past')
+    return render_template('form.html', text_in='', text_out='', tense='past')
 
 
 @app.route('/result/', methods=['GET', 'POST'])
