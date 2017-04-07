@@ -71,7 +71,8 @@ def change_tense(text, to_tense, nlp=nlp):
     out.append(doc[0].text)
     for word_pair in pairwise(doc):
         if (word_pair[0].text == 'will' and word_pair[0].tag_ == 'MD' and word_pair[1].tag_ == 'VB') or \
-                        word_pair[1].tag_ in ('VBD', 'VBP', 'VBZ', 'VBN'):
+                        word_pair[1].tag_ in ('VBD', 'VBP', 'VBZ', 'VBN') or \
+                (not word_pair[0].text in ('to', 'not') and word_pair[1].tag_ == 'VB'):
             subjects = [x.text for x in get_subjects_of_verb(word_pair[1])]
             if ('I' in subjects) or ('we' in subjects) or ('We' in subjects):
                 person = 1

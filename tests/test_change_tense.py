@@ -62,3 +62,8 @@ def test_from_future_perfect():
     assert ct('I will have been alive', 'present') == 'I am alive'
     assert ct('I will have been alive', 'past') == 'I was alive'
     assert ct('I will have five cookies', 'past') == 'I had five cookies'
+
+
+def test_bug1():
+    # in some cases, present tense verb is marked as VB
+    assert ct('I sleep here and run there', 'past') == 'I slept here and ran there'
