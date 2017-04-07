@@ -5,6 +5,8 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+
+
         form {
           /* Just to center the form on the page */
           margin: 0 auto;
@@ -52,6 +54,13 @@
           height: 10em;
         }
 
+        #logo {
+        margin: 0 auto;
+        width: 400px;
+        }
+
+
+
     </style>
 </HEAD>
 
@@ -59,7 +68,6 @@
 
 <form class="pure-form pure-form-aligned" method="post" action="{{ url_for('result') }}">
     <textarea id="text" name="input_text" class="pure-input-1-2" placeholder="enter text here" style="width:100%;">{{ text_in }}</textarea>
-
     <div class="pure-control-group">
             <button type="submit" class="pure-button pure-button-primary" style="width:50%;">Change tense!</button>
 
@@ -74,6 +82,11 @@
     <p>{{ text_out }}</p>
 
 </form>
+<div id="logo">
+<a href="https://github.com/bendichter/change_tense">
+    <img src="{{ url_for('static', filename='github-logo.svg') }}" width="50">
+</a>
+</div>
 
 
 
