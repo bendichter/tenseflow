@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 from change_tense.change_tense import change_tense
-import logging
+from rq import Queue
+from rq.job import Job
+from worker import conn
+import time
 
 app = Flask(__name__)
 
-#logging.basicConfig(filename='error.log', level=logging.DEBUG)
-#ch = logging.StreamHandler()
+q = Queue(connection=conn)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -20,10 +22,26 @@ def result():
     else:
         text_in = ''
     try:
-        text_out = change_tense(text_in, request.form['tense'])
+        job = q.enqueue_call(
+            func=change_tense, args=(text_in, request.form['tense']), result_ttl=5000
+        )
+        while not job.is_finished:
+            time.sleep(.1)
+        text_out = str(job.result)
     except:
         text_out = 'ERROR!!!!!!'
     return render_template('form.html', text_in=text_in, text_out=text_out, tense=request.form['tense'])
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
+
+
+@app.route("/results/<job_key>", methods=['GET'])
+def get_results(job_key):
+
+    job = Job.fetch(job_key, connection=conn)
+
+    if job.is_finished:
+        return str(job.result), 200
+    else:
+        return "Nay!", 202

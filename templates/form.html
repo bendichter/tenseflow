@@ -1,6 +1,12 @@
 <!doctype html>
 
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+<html ng-app="ChangeTenseApp">
+
+
 <HEAD>
+    <title>tenseflow</title>
     <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +16,7 @@
         form {
           /* Just to center the form on the page */
           margin: 0 auto;
-          width: 400px;
+          width: 350px;
           /* To see the outline of the form */
           padding: 1em;
           border: 1px solid #CCC;
@@ -34,7 +40,7 @@
           font: 1em sans-serif;
 
           /* To give the same size to all text fields */
-          width: 800px;
+          width: 700px;
           box-sizing: border-box;
 
           /* To harmonize the look & feel of text field border */
@@ -64,9 +70,10 @@
     </style>
 </HEAD>
 
+<body ng-controller="ChangeTenseController">
 <h1 align="center"> tenseflow </h1>
 
-<form class="pure-form pure-form-aligned" method="post" action="{{ url_for('result') }}">
+<form class="pure-form pure-form-aligned" method="post" action="{{ url_for('result') }}" role="form" ng-submit="getResults()">
     <textarea id="text" name="input_text" class="pure-input-1-2" placeholder="enter text here" style="width:100%;">{{ text_in }}</textarea>
     <div class="pure-control-group">
             <button type="submit" class="pure-button pure-button-primary" style="width:50%;">Change tense!</button>
@@ -87,6 +94,9 @@
     <img src="{{ url_for('static', filename='github-logo.svg') }}" width="50">
 </a>
 </div>
+</body>
+
+</html>
 
 
 
