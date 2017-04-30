@@ -1,10 +1,9 @@
 import string
-
-from spacy.symbols import NOUN
-from pattern.en import conjugate, PAST, PRESENT, tenses, SINGULAR, PLURAL
+from pattern.en import conjugate, PAST, PRESENT, SINGULAR, PLURAL
 from spacy.en import English
+from spacy.symbols import NOUN
 
-from .utils import pairwise
+from utils import pairwise
 
 
 SUBJ_DEPS = {'agent', 'csubj', 'csubjpass', 'expl', 'nsubj', 'nsubjpass'}

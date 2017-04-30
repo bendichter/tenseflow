@@ -1,11 +1,8 @@
 from flask import Flask, render_template, request
-from change_tense.change_tense import change_tense
-import logging
+
+from tenseflow.change_tense import change_tense
 
 app = Flask(__name__)
-
-#logging.basicConfig(filename='error.log', level=logging.DEBUG)
-#ch = logging.StreamHandler()
 
 
 @app.route('/', methods=['GET', 'POST'])

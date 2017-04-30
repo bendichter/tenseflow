@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/change_tense.iml" filepath="$PROJECT_DIR$/.idea/change_tense.iml" />
+      <module fileurl="file://$USER_HOME$/Development/tenseflow/.idea/tenseflow.iml" filepath="$USER_HOME$/Development/tenseflow/.idea/tenseflow.iml" />
     </modules>
   </component>
 </project>
