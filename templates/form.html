@@ -75,7 +75,7 @@
 <form class="pure-form pure-form-aligned" method="post" action="{{ url_for('result') }}">
     <textarea id="text" name="input_text" class="pure-input-1-2" placeholder="enter text here" style="width:100%;">{{ text_in }}</textarea>
     <div class="pure-control-group">
-        <button type="submit" class="pure-button pure-button-primary" style="width:50%;">Change tense!</button>
+        <button type="submit" name="main" class="pure-button pure-button-primary" style="width:50%;">Change tense!</button>
 
         <select name="tense" style="width:30%;">
             <option>past</option>
@@ -84,17 +84,20 @@
         </select>
 
     </div>
+
     <h2>Result</h2>
     <p>{{ text_out }}</p>
     {% if text_out %}
-    <input type="checkbox" name="errortick" value="1" /> This is incorrect<br>
-    <div class="report_error" style=display:none;>
-        <textarea id="correction" name="correction_text" class="pure-input-1-2" placeholder="enter correct output here" style="width:100%;"></textarea>
-        <button type="submit" class="pure-button button-error" style="width:50%;">Submit correction</button>
-    </div>
-    {% endif %}
+        <input type="checkbox" name="errortick" value="1" /> This is incorrect<br>
 
+        <div class="report_error" style=display:none;>
+            <textarea id="correction" name="correction" class="pure-input-1-2" placeholder="enter correct output here" style="width:100%;"></textarea>
+            <button type="submit" name="correction" class="pure-button button-error" style="width:50%;">Submit correction</button>
+        </div>
+    {% endif %}
 </form>
+
+
 <div id="logo">
 <a href="https://github.com/bendichter/change_tense">
     <img src="{{ url_for('static', filename='github-logo.svg') }}" width="50">
