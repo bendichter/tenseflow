@@ -74,3 +74,6 @@ def test_passive():
            'The rooms will be filled with cupboards and book- shelves.'
     assert ct('I am filled.', 'future') == 'I will be filled.'
     assert ct('I will be filled.', 'future') == 'I will be filled.'
+
+#def test_imperative():
+#    assert ct('First, go to the store', 'future') == 'First, go to the store'

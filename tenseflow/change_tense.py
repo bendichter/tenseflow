@@ -4,8 +4,6 @@ from pattern.en import conjugate, PAST, PRESENT, SINGULAR, PLURAL
 from spacy.en import English
 from spacy.symbols import NOUN
 
-from tenseflow.utils import pairwise
-
 SUBJ_DEPS = {'agent', 'csubj', 'csubjpass', 'expl', 'nsubj', 'nsubjpass'}
 
 nlp = English()
@@ -60,7 +58,17 @@ def is_plural_verb(token):
 
 
 def change_tense(text, to_tense, nlp=nlp):
+    """Change the tense of text.
 
+    Args:
+        text (str): text to change.
+        to_tense (str): 'present','past', or 'future'
+        npl (SpaCy model, optional):
+
+    Returns:
+        str: changed text.
+
+    """
     tense_lookup = {'future': 'inf', 'present': PRESENT, 'past': PAST}
     tense = tense_lookup[to_tense]
 
