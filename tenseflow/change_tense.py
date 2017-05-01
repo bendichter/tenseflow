@@ -1,10 +1,10 @@
 import string
+
 from pattern.en import conjugate, PAST, PRESENT, SINGULAR, PLURAL
 from spacy.en import English
 from spacy.symbols import NOUN
 
-from utils import pairwise
-
+from tenseflow.utils import pairwise
 
 SUBJ_DEPS = {'agent', 'csubj', 'csubjpass', 'expl', 'nsubj', 'nsubjpass'}
 
@@ -68,32 +68,47 @@ def change_tense(text, to_tense, nlp=nlp):
 
     out = list()
     out.append(doc[0].text)
-    for word_pair in pairwise(doc):
-        if (word_pair[0].text == 'will' and word_pair[0].tag_ == 'MD' and word_pair[1].tag_ == 'VB') or \
-                        word_pair[1].tag_ in ('VBD', 'VBP', 'VBZ', 'VBN') or \
-                (not word_pair[0].text in ('to', 'not') and word_pair[1].tag_ == 'VB'):
-            subjects = [x.text for x in get_subjects_of_verb(word_pair[1])]
+    words = []
+    for word in doc:
+        words.append(word)
+        if len(words) == 1:
+            continue
+        if (words[-2].text == 'will' and words[-2].tag_ == 'MD' and words[-1].tag_ == 'VB') or \
+                        words[-1].tag_ in ('VBD', 'VBP', 'VBZ', 'VBN') or \
+                (not words[-2].text in ('to', 'not') and words[-1].tag_ == 'VB'):
+
+            if words[-2].text in ('were', 'am', 'is', 'are', 'was') or\
+                    (words[-2].text == 'be' and len(words) > 2 and words[-3].text == 'will'):
+                this_tense = tense_lookup['past']
+            else:
+                this_tense = tense
+
+            subjects = [x.text for x in get_subjects_of_verb(words[-1])]
             if ('I' in subjects) or ('we' in subjects) or ('We' in subjects):
                 person = 1
             elif ('you' in subjects) or ('You' in subjects):
                 person = 2
             else:
                 person = 3
-            if is_plural_verb(word_pair[1]):
+            if is_plural_verb(words[-1]):
                 number = PLURAL
             else:
                 number = SINGULAR
-            if (word_pair[0].text == 'will' and word_pair[0].tag_ == 'MD') or word_pair[0].text == 'had':
+            if (words[-2].text == 'will' and words[-2].tag_ == 'MD') or words[-2].text == 'had':
                 out.pop(-1)
-            if to_tense == 'future' and out[-1] is not 'will':
-                out.append('will')
+            if to_tense == 'future':
+                if not (out[-1] == 'will' or out[-1] == 'be'):
+                    out.append('will')
+                # handle will as a noun in future tense
+                if words[-2].text == 'will' and words[-2].tag_ == 'NN':
+                    out.append('will')
             #if word_pair[0].dep_ == 'auxpass':
-            out.append(conjugate(word_pair[1].text, tense=tense, person=person, number=number))
+            out.append(conjugate(words[-1].text, tense=this_tense, person=person, number=number))
         else:
-            out.append(word_pair[1].text)
+            out.append(words[-1].text)
 
         # negation
-        if word_pair[0].text+word_pair[1].text in ('didnot', 'donot', 'willnot'):
+        if words[-2].text + words[-1].text in ('didnot', 'donot', 'willnot'):
             if tense == PAST:
                 out[-2] = 'did'
             elif tense == PRESENT:
@@ -102,7 +117,7 @@ def change_tense(text, to_tense, nlp=nlp):
                 out.pop(-2)
 
         # future perfect, and progressives, but ignore for "I will have cookies"
-        if word_pair[1].text in ('have', 'has') and len(list(word_pair[1].ancestors)) and word_pair[1].dep_ == 'aux':
+        if words[-1].text in ('have', 'has') and len(list(words[-1].ancestors)) and words[-1].dep_ == 'aux':
             out.pop(-1)
 
     text_out = ' '.join(out)
