@@ -90,3 +90,5 @@ ENV/
 .ropeproject
 
 *.db
+
+.idea
