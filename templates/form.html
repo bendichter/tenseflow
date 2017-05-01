@@ -1,4 +1,10 @@
 <!doctype html>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script src="{{url_for('static', filename='main.js')}}" defer></script>
+
 
 <HEAD>
     <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
@@ -69,17 +75,24 @@
 <form class="pure-form pure-form-aligned" method="post" action="{{ url_for('result') }}">
     <textarea id="text" name="input_text" class="pure-input-1-2" placeholder="enter text here" style="width:100%;">{{ text_in }}</textarea>
     <div class="pure-control-group">
-            <button type="submit" class="pure-button pure-button-primary" style="width:50%;">Change tense!</button>
+        <button type="submit" class="pure-button pure-button-primary" style="width:50%;">Change tense!</button>
 
-          <select name="tense", style="width:30%;">
-              <option>past</option>
-              <option>present</option>
-              <option>future</option>
-          </select>
+        <select name="tense" style="width:30%;">
+            <option>past</option>
+            <option>present</option>
+            <option>future</option>
+        </select>
 
     </div>
     <h2>Result</h2>
     <p>{{ text_out }}</p>
+    {% if text_out %}
+    <input type="checkbox" name="errortick" value="1" /> This is incorrect<br>
+    <div class="report_error" style=display:none;>
+        <textarea id="correction" name="correction_text" class="pure-input-1-2" placeholder="enter correct output here" style="width:100%;"></textarea>
+        <button type="submit" class="pure-button button-error" style="width:50%;">Submit correction</button>
+    </div>
+    {% endif %}
 
 </form>
 <div id="logo">

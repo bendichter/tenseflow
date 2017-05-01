@@ -1,8 +1,14 @@
 from flask import Flask, render_template, request
+from tenseflow.database import db_session
 
-from tenseflow.change_tense import change_tense
+from tenseflow import change_tense
 
 app = Flask(__name__)
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db_session.remove()
 
 
 @app.route('/', methods=['GET', 'POST'])
