@@ -1,4 +1,4 @@
-from tenseflow.change_tense import change_tense as ct
+from tenseflow import change_tense as ct
 
 
 def test_present2future():

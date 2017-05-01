@@ -21,7 +21,7 @@ sudo python -m spacy download en
 ## Usage
 Basic usage
 ```python
-from tenseflow.change_tense import change_tense
+from tenseflow import change_tense
 
 change_tense('I will go to the store.', 'past')
 u'I went to the store.'
