@@ -1,6 +1,6 @@
 # tenseflow
 tenseflow automatically changes the tense of any English text.
-
+![screenshot](static/screenshot.png)
 ## Features
 - change to `'past'`, `'present'`, or `'future'` tense
 - includes web app
