@@ -67,3 +67,10 @@ def test_from_future_perfect():
 def test_bug1():
     # in some cases, present tense verb is marked as VB
     assert ct('I sleep here and run there', 'past') == 'I slept here and ran there'
+
+
+def test_passive():
+    assert ct('The rooms were filled with cupboards and book-shelves.', 'future') ==\
+           'The rooms will be filled with cupboards and book- shelves.'
+    assert ct('I am filled.', 'future') == 'I will be filled.'
+    assert ct('I will be filled.', 'future') == 'I will be filled.'
