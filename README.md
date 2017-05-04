@@ -11,7 +11,7 @@ tenseflow automatically changes the tense of any English text.
 ## Installation
 install this package
 ```
-git clone 
+git clone https://github.com/bendichter/tenseflow.git
 pip install tenseflow
 ```
 download default English SpaCy model
