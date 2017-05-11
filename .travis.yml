@@ -1,11 +1,10 @@
 language: python
 python:
-  - "2.6"
   - "2.7"
 before_install:
   - pip install --upgrade pip
 # command to install dependencies
 install: "pip install -r requirements.txt"
-before_script: "sudo python -m spacy download en"
+before_script: "sudo ~/virtualenv/python2.7/bin/python -m spacy download en"
 # command to run tests
 script: pytest
