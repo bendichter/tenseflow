@@ -36,5 +36,6 @@ flask run
 ```
 
 ## Testing
-[![Build Status](https://travis-ci.org/bendichter/tenseflow?branch=master)](https://travis-ci.org/bendichter/tenseflow)
-to test, run `pytest` from within the tenseflow directory
+[![Build Status](https://travis-ci.org/bendichter/tenseflow.png?branch=master)](https://travis-ci.org/bendichter/tenseflow)
+
+To test, run `pytest` from within the tenseflow directory
