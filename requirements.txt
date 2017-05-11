@@ -1,3 +1,4 @@
+six
 spacy
 pattern
 gunicorn==19.6.0
