@@ -34,3 +34,8 @@ Run web app
 export FLASK_APP=app.py
 flask run
 ```
+
+## Testing
+[![Build Status](https://travis-ci.org/bendichter/tenseflow.png?branch=master)](https://travis-ci.org/bendichter/tenseflow)
+
+To test, run `pytest` from within the tenseflow directory
