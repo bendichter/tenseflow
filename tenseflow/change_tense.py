@@ -1,12 +1,14 @@
 import string
 
 from pattern.en import conjugate, PAST, PRESENT, SINGULAR, PLURAL
-from spacy.en import English
+import spacy
 from spacy.symbols import NOUN
+
+
 
 SUBJ_DEPS = {'agent', 'csubj', 'csubjpass', 'expl', 'nsubj', 'nsubjpass'}
 
-nlp = English()
+nlp = spacy.load('en')
 
 
 def _get_conjuncts(tok):
