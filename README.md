@@ -16,7 +16,7 @@ Install this package
 ```
 git clone https://github.com/bendichter/tenseflow.git
 cd tenseflow
-pip install .
+sudo pip install .
 ```
 download default English SpaCy model
 ```
