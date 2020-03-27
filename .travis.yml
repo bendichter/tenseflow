@@ -5,6 +5,6 @@ before_install:
   - pip install --upgrade pip
 # command to install dependencies
 install: "pip install ."
-before_script: "sudo ~/virtualenv/python2.7/bin/python -m spacy download en"
+before_script: "sudo ~/virtualenv/python3.6/bin/python -m spacy download en"
 # command to run tests
 script: pytest
