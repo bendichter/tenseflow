@@ -5,9 +5,10 @@ import spacy
 from spacy.symbols import NOUN
 
 
+
 SUBJ_DEPS = {'agent', 'csubj', 'csubjpass', 'expl', 'nsubj', 'nsubjpass'}
 
-nlp = spacy.load('en')
+nlp = spacy.load('en_core_web_sm')
 
 
 def _get_conjuncts(tok):
@@ -83,7 +84,7 @@ def change_tense(text, to_tense, nlp=nlp):
         if len(words) == 1:
             continue
         if (words[-2].text == 'will' and words[-2].tag_ == 'MD' and words[-1].tag_ == 'VB') or \
-                words[-1].tag_ in ('VBD', 'VBP', 'VBZ', 'VBN') or \
+                        words[-1].tag_ in ('VBD', 'VBP', 'VBZ', 'VBN') or \
                 (not words[-2].text in ('to', 'not') and words[-1].tag_ == 'VB'):
 
             if words[-2].text in ('were', 'am', 'is', 'are', 'was') or\
