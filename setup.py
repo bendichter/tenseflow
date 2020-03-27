@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages
 from setuptools.command.install import install
-import sys
 import os
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+
+with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 
 class CustomInstall(install):
@@ -11,15 +16,19 @@ class CustomInstall(install):
         install.run(self)
         os.system("sudo python -m spacy download en")
 
-if sys.version >= '3':
-    raise Exception('Unfortunately, this package only runs in python 2.')
 
 setup(name='tenseflow',
-      version='0.1',
+      version='0.2',
       description='Change the tense of text',
+      long_description=long_description,
+      long_description_content_type="text/markdown",
       author='Ben Dichter',
       author_email='ben.dichter@gmail.com',
-      url='',
+      url='https://github.com/bendichter/tenseflow',
       packages=find_packages(exclude='test'),
       install_requires=['spacy', 'pattern', 'flask', 'sqlalchemy'],
-      cmdclass={'install': CustomInstall})
+      cmdclass={'install': CustomInstall},
+      extras_require={
+          'test': ['pytest'],
+      },
+      )

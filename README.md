@@ -10,7 +10,7 @@ tenseflow automatically changes the tense of any English text.
 
 ## Installation
 
-Unfortunately, the package is only compatible with python 2.
+Unfortunately, the package is only compatible with python 2.7 and 3.6.
 
 Install this package
 ```
@@ -41,7 +41,4 @@ flask run
 ## Testing
 [![Build Status](https://travis-ci.org/bendichter/tenseflow.png?branch=master)](https://travis-ci.org/bendichter/tenseflow)
 
-To test, run `pytest` from within the tenseflow directory
-
-## Notes
-Unfortunately, some of the dependencies in this project are only available in python2, so this project only works in python 2 with no plans to move to python 3. Sorry for the inconvenience!
+To test, install pytest with `pip install pytest`, then run `pytest` from within the tenseflow directory.
