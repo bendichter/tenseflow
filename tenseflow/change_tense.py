@@ -60,6 +60,11 @@ def is_plural_verb(token):
 
     return plural_score > .5
 
+def preserve_caps(word, newWord):
+    """Returns newWord, capitalizing it if word is capitalized."""
+    if word[0] >= 'A' and word[0] <= 'Z':
+        newWord = newWord.capitalize()
+    return newWord
 
 def change_tense(text, to_tense, nlp=nlp):
     """Change the tense of text.
@@ -115,7 +120,8 @@ def change_tense(text, to_tense, nlp=nlp):
                 if words[-2].text == 'will' and words[-2].tag_ == 'NN':
                     out.append('will')
             #if word_pair[0].dep_ == 'auxpass':
-            out.append(conjugate(words[-1].text, tense=this_tense, person=person, number=number))
+            oldWord = words[-1].text
+            out.append(preserve_caps(oldWord, conjugate(oldWord, tense=this_tense, person=person, number=number)))
         else:
             out.append(words[-1].text)
 
