@@ -120,7 +120,7 @@ def change_tense(text, to_tense, nlp=nlp):
             out.append(words[-1].text)
 
         # negation
-        if words[-2].text + words[-1].text in ('didnot', 'donot', 'willnot'):
+        if words[-2].text + words[-1].text in ('didnot', 'donot', 'willnot', "didn't", "don't", "won't"):
             if tense == PAST:
                 out[-2] = 'did'
             elif tense == PRESENT:
