@@ -44,7 +44,9 @@ def get_subjects_of_verb(verb):
     # get additional conjunct subjects
     subjs.extend(tok for subj in subjs for tok in _get_conjuncts(subj))
     if not len(subjs):
-        return get_subjects_of_verb(list(verb.ancestors)[0])
+        ancestors = list(verb.ancestors)
+        if len(ancestors) > 0:
+            return get_subjects_of_verb(ancestors[0])
     return subjs
 
 
