@@ -134,12 +134,16 @@ def change_tense(text, to_tense, nlp=nlp):
 
     text_out = ' '.join(out)
 
+    # Remove spaces before/after punctuation:
     for char in string.punctuation:
         if char in """(<['""":
             text_out = text_out.replace(char+' ', char)
         else:
             text_out = text_out.replace(' '+char, char)
 
-    text_out = text_out.replace(" 's", "'s")  # fix posessive 's
+    for char in ["-", "“", "‘"]:
+        text_out = text_out.replace(char+' ', char)
+    for char in ["…", "”", "'s", "n't"]:
+        text_out = text_out.replace(' '+char, char)
 
     return text_out
