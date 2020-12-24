@@ -71,7 +71,7 @@ def test_bug1():
 
 def test_passive():
     assert ct('The rooms were filled with cupboards and book-shelves.', 'future') ==\
-           'The rooms will be filled with cupboards and book- shelves.'
+           'The rooms will be filled with cupboards and book-shelves.'
     assert ct('I am filled.', 'future') == 'I will be filled.'
     assert ct('I will be filled.', 'future') == 'I will be filled.'
 
