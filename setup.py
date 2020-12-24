@@ -26,9 +26,10 @@ setup(name='tenseflow',
       author_email='ben.dichter@gmail.com',
       url='https://github.com/bendichter/tenseflow',
       packages=find_packages(exclude='test'),
-      install_requires=['spacy', 'pattern', 'flask', 'sqlalchemy'],
+      install_requires=['spacy', 'pattern'],
       cmdclass={'install': CustomInstall},
       extras_require={
           'test': ['pytest'],
+          'app': ['flask', 'sqlalchemy']
       },
       )
