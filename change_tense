@@ -1,0 +1,42 @@
+#! /usr/bin/env python3
+
+import argparse
+
+parser = argparse.ArgumentParser(description='Attempts to change the verb tense of English text.')
+parser.add_argument('--past', dest='tense', action='store_const',
+                    const='past', default='past',
+                    help='Convert to past tense (default)')
+parser.add_argument('--present', dest='tense', action='store_const',
+                    const='present',
+                    help='Convert to present tense')
+parser.add_argument('--straight', dest='straight', action='store_true', default=False,
+                    help="Input contains 'straight' apostrophes, not ‘curly’ ones")
+parser.add_argument('--text', dest='text', action='store',
+                    help="The text to convert.")
+parser.add_argument('files', metavar="FILENAMES", type=str, nargs='*',
+					help='Text file(s) to read; if none are given, reads stdin.')
+args = parser.parse_args()
+
+
+
+import fileinput
+import tenseflow
+
+
+def process(line):
+    if not args.straight:
+        line = line.replace(u"’", u"'")     # Unicode apostrophes in contractions confuse tenseflow
+    out = tenseflow.change_tense(line, args.tense)
+    if not args.straight:
+        out = out.replace(u"'", u"’").replace(u" ’", u"’")
+    print(out, end="")
+
+
+if args.text != None:
+    process(args.text)
+    print("")
+    if len(args.files) == 0:
+        exit(0)
+
+for line in fileinput.FileInput(args.files):
+    process(line)

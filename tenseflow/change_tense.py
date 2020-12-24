@@ -44,7 +44,9 @@ def get_subjects_of_verb(verb):
     # get additional conjunct subjects
     subjs.extend(tok for subj in subjs for tok in _get_conjuncts(subj))
     if not len(subjs):
-        return get_subjects_of_verb(list(verb.ancestors)[0])
+        ancestors = list(verb.ancestors)
+        if len(ancestors) > 0:
+            return get_subjects_of_verb(ancestors[0])
     return subjs
 
 
@@ -58,6 +60,11 @@ def is_plural_verb(token):
 
     return plural_score > .5
 
+def preserve_caps(word, newWord):
+    """Returns newWord, capitalizing it if word is capitalized."""
+    if word[0] >= 'A' and word[0] <= 'Z':
+        newWord = newWord.capitalize()
+    return newWord
 
 def change_tense(text, to_tense, nlp=nlp):
     """Change the tense of text.
@@ -113,12 +120,13 @@ def change_tense(text, to_tense, nlp=nlp):
                 if words[-2].text == 'will' and words[-2].tag_ == 'NN':
                     out.append('will')
             #if word_pair[0].dep_ == 'auxpass':
-            out.append(conjugate(words[-1].text, tense=this_tense, person=person, number=number))
+            oldWord = words[-1].text
+            out.append(preserve_caps(oldWord, conjugate(oldWord, tense=this_tense, person=person, number=number)))
         else:
             out.append(words[-1].text)
 
         # negation
-        if words[-2].text + words[-1].text in ('didnot', 'donot', 'willnot'):
+        if words[-2].text + words[-1].text in ('didnot', 'donot', 'willnot', "didn't", "don't", "won't"):
             if tense == PAST:
                 out[-2] = 'did'
             elif tense == PRESENT:
@@ -132,12 +140,16 @@ def change_tense(text, to_tense, nlp=nlp):
 
     text_out = ' '.join(out)
 
+    # Remove spaces before/after punctuation:
     for char in string.punctuation:
         if char in """(<['""":
             text_out = text_out.replace(char+' ', char)
         else:
             text_out = text_out.replace(' '+char, char)
 
-    text_out = text_out.replace(" 's", "'s")  # fix posessive 's
+    for char in ["-", "“", "‘"]:
+        text_out = text_out.replace(char+' ', char)
+    for char in ["…", "”", "'s", "n't"]:
+        text_out = text_out.replace(' '+char, char)
 
     return text_out
